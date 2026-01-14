@@ -20,7 +20,7 @@ Either run:
 
 Then register assets in your view file:
 
-`FontAwesomeAsset::register($this)` OR `FontAwesomeCdnAsset::register($this)` to use CDN files.
+`MaterialDesignIconsAsset::register($this)`
 
 and use:
 

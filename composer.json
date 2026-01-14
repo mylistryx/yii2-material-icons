@@ -1,0 +1,43 @@
+{
+  "name": "mylistryx/yii2-materialdesign-icons",
+  "description": "Yii2 MaterialDesign icons asset bundle",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "type": "yii2-extension",
+  "authors": [
+    {
+      "name": "Sergey Zhukovskiy",
+      "email": "mylistryx@gmail.com",
+      "homepage": "https://net23.ru"
+    }
+  ],
+  "keywords": [
+    "yii2",
+    "materialdesign",
+    "icons",
+    "asset",
+    "bundle"
+  ],
+  "version": "7.4.47",
+  "readme": "README.md",
+  "autoload": {
+    "psr-4": {
+      "yii\\mdi\\": "src/"
+    }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ],
+  "require": {
+    "php": ">=8.0",
+    "yiisoft/yii2": "~2.0.0"
+  },
+  "config": {
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true
+    }
+  }
+}

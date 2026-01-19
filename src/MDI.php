@@ -61,6 +61,4 @@ class MDI extends Icon
     {
         return self::s($icon, $content, $size, $rotate, $flip, $color, $inactive, $spin);
     }
-
-
 }

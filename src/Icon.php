@@ -7,28 +7,29 @@ use function array_filter;
 use function array_merge;
 use function array_unique;
 use function implode;
+use function str_starts_with;
 use function strlen;
 use function strtolower;
 use function substr;
 
 /**
- * @method size18()
- * @method size24()
- * @method size36()
- * @method size48()
- * @method flipV()
- * @method flipH()
- * @method rotate45()
- * @method rotate90()
- * @method rotate135()
- * @method rotate180()
- * @method rotate225()
- * @method rotate270()
- * @method rotate315()
- * @method colorDark()
- * @method colorLight()
- * @method tagI()
- * @method tagSpan()
+ * @method self size18()
+ * @method self size24()
+ * @method self size36()
+ * @method self size48()
+ * @method self flipV()
+ * @method self flipH()
+ * @method self rotate45()
+ * @method self rotate90()
+ * @method self rotate135()
+ * @method self rotate180()
+ * @method self rotate225()
+ * @method self rotate270()
+ * @method self rotate315()
+ * @method self colorDark()
+ * @method self colorLight()
+ * @method self tagI()
+ * @method self tagSpan()
  */
 abstract class Icon
 {
@@ -86,7 +87,7 @@ abstract class Icon
         $this->spin($spin);
     }
 
-    public function __call(string $name, array $arguments)
+    public function __call(string $name, array $arguments): static
     {
         if (str_starts_with($name, self::FLIP_CLASS)) {
             return $this->flip(substr($name, strlen(self::FLIP_CLASS)));
@@ -140,6 +141,13 @@ abstract class Icon
                 self::BASE_CLASS,
                 self::FLIP_CLASS,
                 $this->flip,
+            ]);
+        }
+
+        if ($this->color) {
+            $classArray[] = implode('-', [
+                self::BASE_CLASS,
+                $this->color,
             ]);
         }
 

@@ -58,6 +58,8 @@ abstract class Icon
     private bool $inactive = false;
     private ?string $color = null;
 
+    private array $addClasses = [];
+
     public function __construct(
         private string  $icon,
         private ?string $content = null,
@@ -122,6 +124,10 @@ abstract class Icon
             self::FLIP_CLASS,
             $this->flip,
         ]);
+
+        $addClasses = array_unique($this->addClasses);
+
+        $classArray = array_merge($classArray, $addClasses);
 
         $classArray[] = $this->inactive ?? implode('-', [
             self::BASE_CLASS,
@@ -210,6 +216,20 @@ abstract class Icon
             self::TAG_SPAN => self::TAG_SPAN,
             default => self::TAG_I,
         };
+
+        return $this;
+    }
+
+    public function addClass(string $class): static
+    {
+        $this->addClasses[] = $class;
+
+        return $this;
+    }
+
+    public function addClasses(array $classes = []): static
+    {
+        $this->addClasses = array_merge($this->addClasses, $classes);
 
         return $this;
     }

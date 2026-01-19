@@ -4,9 +4,12 @@ namespace yii\mdi;
 
 use yii\helpers\Html;
 use function array_filter;
+use function array_merge;
 use function array_unique;
 use function implode;
+use function strlen;
 use function strtolower;
+use function substr;
 
 /**
  * @method size18()
@@ -46,6 +49,9 @@ abstract class Icon
     public const DEGREES_315 = 315;
     private const SPIN_CLASS = 'spin';
     private const FLIP_CLASS = 'flip';
+    private const SIZE_CLASS = 'size';
+    private const COLOR_CLASS = 'color';
+    private const TAG_CLASS = 'tag';
     private const FLIP_V = 'v';
     private const FLIP_H = 'h';
     public const COLOR_LIGHT = 'light';
@@ -82,17 +88,19 @@ abstract class Icon
 
     public function __call(string $name, array $arguments)
     {
-        if (substr($name, 0, 3) === 'flip') {
-            $this->flip(substr($name, 3));
-        } elseif (substr($name, 0, 5) === 'rotate') {
-            $this->rotate(substr($name, 5));
-        } elseif (substr($name, 0, 3) === 'size') {
-            $this->size(substr($name, 3));
-        } elseif (substr($name, 0, 4) === 'color') {
-            $this->color(substr($name, 4));
-        } elseif (substr($name, 0, 2) === 'tag') {
-            $this->tag(substr($name, 2));
+        if (str_starts_with($name, self::FLIP_CLASS)) {
+            return $this->flip(substr($name, strlen(self::FLIP_CLASS)));
+        } elseif (str_starts_with($name, self::ROTATE_CLASS)) {
+            return $this->rotate(substr($name, strlen(self::ROTATE_CLASS)));
+        } elseif (str_starts_with($name, self::SIZE_CLASS)) {
+            return $this->size(substr($name, strlen(self::SIZE_CLASS)));
+        } elseif (str_starts_with($name, self::COLOR_CLASS)) {
+            return $this->color(substr($name, strlen(self::COLOR_CLASS)));
+        } elseif (str_starts_with($name, self::TAG_CLASS)) {
+            return $this->tag(substr($name, strlen(self::TAG_CLASS)));
         }
+
+        return $this;
     }
 
     public function __toString(): string

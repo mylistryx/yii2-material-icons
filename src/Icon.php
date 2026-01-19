@@ -131,7 +131,7 @@ abstract class Icon
         return Html::tag($this->tag, $this->content, ['class' => array_filter($classArray)]);
     }
 
-    public function size(int $size): static
+    public function size(?int $size = null): static
     {
         $this->size = match ($size) {
             self::SIZE_18 => self::SIZE_18,

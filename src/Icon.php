@@ -167,7 +167,7 @@ abstract class Icon
 
     public function flip(?string $direction = null): static
     {
-        $this->flip = match (strtolower($direction)) {
+        $this->flip = match (strtolower($direction ?? '')) {
             self::FLIP_V => self::FLIP_V,
             self::FLIP_H => self::FLIP_H,
             default => null,
@@ -195,7 +195,7 @@ abstract class Icon
 
     public function color(?string $color = null): static
     {
-        $this->color = match (strtolower($color)) {
+        $this->color = match (strtolower($color ?? '')) {
             self::COLOR_LIGHT => self::COLOR_LIGHT,
             self::COLOR_DARK => self::COLOR_DARK,
             default => null,
@@ -206,7 +206,7 @@ abstract class Icon
 
     public function tag(?string $tag = null): static
     {
-        $this->tag = match (strtolower($tag)) {
+        $this->tag = match (strtolower($tag ?? '')) {
             self::TAG_SPAN => self::TAG_SPAN,
             default => self::TAG_I,
         };

@@ -4,6 +4,8 @@ namespace yii\mdi;
 
 use yii\helpers\Html;
 use function array_filter;
+use function array_unique;
+use function implode;
 use function strtolower;
 
 /**
@@ -103,38 +105,46 @@ abstract class Icon
             ]),
         ];
 
-        $classArray[] = $this->size ?? implode('-', [
-            self::BASE_CLASS,
-            $this->size . 'px',
-        ]);
+        if ($this->size) {
+            $classArray[] = implode('-', [
+                self::BASE_CLASS,
+                $this->size . 'px',
+            ]);
+        }
 
-        $classArray[] = $this->rotateDegrees ?? implode('-', [
-            self::BASE_CLASS,
-            self::ROTATE_CLASS,
-            $this->rotateDegrees,
-        ]);
+        if ($this->rotateDegrees) {
+            $classArray[] = implode('-', [
+                self::BASE_CLASS,
+                self::ROTATE_CLASS,
+                $this->rotateDegrees,
+            ]);
+        }
 
-        $classArray[] = $this->spin ?? implode('-', [
-            self::BASE_CLASS,
-            self::SPIN_CLASS,
-        ]);
+        if ($this->spin) {
+            $classArray[] = implode('-', [
+                self::BASE_CLASS,
+                self::SPIN_CLASS,
+            ]);
+        }
 
-        $classArray[] = $this->flip ?? implode('-', [
-            self::BASE_CLASS,
-            self::FLIP_CLASS,
-            $this->flip,
-        ]);
+        if ($this->flip) {
+            $classArray[] = implode('-', [
+                self::BASE_CLASS,
+                self::FLIP_CLASS,
+                $this->flip,
+            ]);
+        }
 
-        $addClasses = array_unique($this->addClasses);
+        if ($this->inactive) {
+            $classArray[] = implode('-', [
+                self::BASE_CLASS,
+                self::INACTIVE_CLASS,
+            ]);
+        }
 
-        $classArray = array_merge($classArray, $addClasses);
+        $classArray = array_merge($classArray, $this->addClasses);
 
-        $classArray[] = $this->inactive ?? implode('-', [
-            self::BASE_CLASS,
-            self::INACTIVE_CLASS,
-        ]);
-
-        return Html::tag($this->tag, $this->content, ['class' => array_filter($classArray)]);
+        return Html::tag($this->tag, $this->content, ['class' => array_filter(array_unique($classArray))]);
     }
 
     public function size(?int $size = null): static
